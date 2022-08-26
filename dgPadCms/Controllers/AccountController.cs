@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace dgPadCms.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly UserManager<AppUser> userManager;
@@ -23,10 +24,12 @@ namespace dgPadCms.Controllers
 
 
         // GET /account/register
+        [AllowAnonymous]
         public IActionResult Register() => View();
 
         // POST /account/register
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(User user)
         {
@@ -107,7 +110,6 @@ namespace dgPadCms.Controllers
 
         // POST /account/edit
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(UserEdit user)
         {
