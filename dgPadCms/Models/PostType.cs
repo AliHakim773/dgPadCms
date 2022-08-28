@@ -6,9 +6,13 @@ namespace dgPadCms.Models
     public class PostType
     {
         public int PostTypeId { get; set; }
+        
         [Required]
         public string Title { get; set; }
+
         public string Code { get; set; }
-        public List<Taxonomy> TaxonomyList { get; set; }
+
+        public ICollection<TaxonomyPostType> TaxonomyPostTypes { get; set; }
+        public ICollection<Post> Posts { get; set; }
     }
 }
