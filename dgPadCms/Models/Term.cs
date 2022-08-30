@@ -14,6 +14,7 @@ namespace dgPadCms.Models
         public string Code { get; set; }
 
         [Required]
+        [Display(Name = "Taxonomy")]
         public int TaxonomyId { get; set; }
 
         public Taxonomy Taxonomy { get; set; }
