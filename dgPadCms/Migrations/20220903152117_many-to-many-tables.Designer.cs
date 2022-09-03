@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using dgPadCms.Infrastructure;
 
 namespace dgPadCms.Migrations
 {
     [DbContext(typeof(dgPadContext))]
-    partial class dgPadContextModelSnapshot : ModelSnapshot
+    [Migration("20220903152117_many-to-many-tables")]
+    partial class manytomanytables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

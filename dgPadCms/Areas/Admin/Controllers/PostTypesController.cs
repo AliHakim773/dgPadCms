@@ -22,8 +22,17 @@ namespace dgPadCms.Areas.Admin.Controllers
         // GET /admin/posttypes
         public async Task<IActionResult> Index()
         {
-            var postTypes = await context.PostTypes.Include(x => x.TaxonomyPostTypes).ThenInclude(x => x.Taxonomy).ToListAsync();
+            var postTypes = await context.PostTypes.ToListAsync();
             return View(postTypes);
+        }
+
+        // GET /admin/posttype/detials
+        public async Task<IActionResult> Details(int id)
+        {
+            var postType = await context.PostTypes.FindAsync(id);
+            ViewBag.isChecked = await context.taxonomyPostTypes.Where(x => x.PostTypeId == id).Include(x => x.Taxonomy).ToListAsync();
+
+            return View(postType);
         }
 
         // GET /admin/posttypes/create
@@ -71,36 +80,57 @@ namespace dgPadCms.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var postType = await context.PostTypes.FindAsync(id);
-            //var postTypeTaxonomy = await context.PostTypes
-            //    .Where(x => x.PostTypeId == id)
-            //    //.Include(x => x.TaxonomyPostTypes)
-            //    .ToListAsync();
             ViewBag.taxonomies = await context.Taxonomies.ToListAsync();
+            ViewBag.isChecked = await context.taxonomyPostTypes.Where(x => x.PostTypeId == id).ToListAsync();
 
-            ////var shit = await context.Tax
-
-            ////var test = await context.PostTypes
-            ////    //.Where(x => x.PostTypeId == id)
-            ////    .Include(x => x.TaxonomyPostTypes)
-            ////    .ThenInclude(x => x.Taxonomy)
-            ////    .FirstOrDefaultAsync(x => x.PostTypeId == id);
-            ////List<int> shi = new List<int>();
-            ////var test2 = test.Select(x => x.TaxonomyPostTypes);
-            ////foreach ( var i in test2)
-            ////{
-            ////    foreach ( var t in i)
-            ////    {
-            ////        shi.Add(t.TaxonomyId);
-            ////    }
-            ////}
-            //List<int> shi = new List<int>();
-
-            //foreach ( var i in test.TaxonomyPostTypes)
-            //{
-            //    shi.Add(i.TaxonomyId);
-            //}
-            //ViewBag.shi = shi;
             return View(postType);
         }
+
+        // POST /admin/posttypes/edit/id
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> Edit(PostType postType, List<int> taxonomyIdList)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(postType);
+            }
+            if (taxonomyIdList == null) return View(postType);
+
+            var oldTax = await context.taxonomyPostTypes.Where(x => x.PostTypeId == postType.PostTypeId).ToListAsync();
+            foreach (var tax in oldTax)
+            {
+                context.taxonomyPostTypes.Remove(tax);
+            }
+            await context.SaveChangesAsync();
+
+            context.Update(postType);
+            await context.SaveChangesAsync();
+
+            foreach (var taxonomy in taxonomyIdList)
+            {
+                TaxonomyPostType taxonomyPostType = new TaxonomyPostType()
+                {
+                    TaxonomyId = taxonomy,
+                    PostTypeId = postType.PostTypeId,
+                };
+
+                context.Add(taxonomyPostType);
+            }
+
+            await context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
+
+        // GET /admin/posttype/delete/id
+        public async Task<IActionResult> Delete(int id)
+        {
+            var postType = await context.PostTypes.FindAsync(id);
+            context.PostTypes.Remove(postType);
+            await context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
     }
 }
