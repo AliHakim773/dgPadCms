@@ -1,5 +1,7 @@
 ﻿using dgPadCms.Infrastructure;
+using dgPadCms.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,9 +25,27 @@ namespace dgPadCms.Areas.Admin.Controllers
             return View(posts);
         }
 
-        // GET /admin/posts/create
-        public IActionResult Create()
+        // GET /admin/posts/choose
+        public IActionResult Choose()
         {
+            ViewBag.PostTypeId = new SelectList(context.PostTypes.OrderBy(x => x.Title), "PostTypeId", "Title");
+
+            return View();
+        }
+
+        // POST /admin/posts/choose
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> Choose(int pts)
+        {
+            var pt = await context.PostTypes.FindAsync(pts);
+            return RedirectToAction("Create", pt);
+        }
+
+        // GET /admin/posts/create
+        public ActionResult Create(PostType pt)
+        {
+            ViewBag.PostType = pt;
             return View();
         }
     }
