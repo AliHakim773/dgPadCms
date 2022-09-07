@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using dgPadCms.Infrastructure;
 
 namespace dgPadCms.Migrations
 {
     [DbContext(typeof(dgPadContext))]
-    partial class dgPadContextModelSnapshot : ModelSnapshot
+    [Migration("20220904165538_Post-Title")]
+    partial class PostTitle
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -222,8 +224,8 @@ namespace dgPadCms.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CreationDate")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Details")
                         .HasColumnType("nvarchar(max)");
@@ -256,7 +258,7 @@ namespace dgPadCms.Migrations
 
                     b.HasIndex("TermId");
 
-                    b.ToTable("PostTerms");
+                    b.ToTable("postTerms");
                 });
 
             modelBuilder.Entity("dgPadCms.Models.PostType", b =>
@@ -309,7 +311,7 @@ namespace dgPadCms.Migrations
 
                     b.HasIndex("PostTypeId");
 
-                    b.ToTable("TaxonomyPostTypes");
+                    b.ToTable("taxonomyPostTypes");
                 });
 
             modelBuilder.Entity("dgPadCms.Models.Term", b =>

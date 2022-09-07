@@ -30,7 +30,7 @@ namespace dgPadCms.Areas.Admin.Controllers
         public async Task<IActionResult> Details(int id)
         {
             var postType = await context.PostTypes.FindAsync(id);
-            ViewBag.isChecked = await context.taxonomyPostTypes.Where(x => x.PostTypeId == id).Include(x => x.Taxonomy).ToListAsync();
+            ViewBag.isChecked = await context.TaxonomyPostTypes.Where(x => x.PostTypeId == id).Include(x => x.Taxonomy).ToListAsync();
 
             return View(postType);
         }
@@ -81,7 +81,7 @@ namespace dgPadCms.Areas.Admin.Controllers
         {
             var postType = await context.PostTypes.FindAsync(id);
             ViewBag.taxonomies = await context.Taxonomies.ToListAsync();
-            ViewBag.isChecked = await context.taxonomyPostTypes.Where(x => x.PostTypeId == id).ToListAsync();
+            ViewBag.isChecked = await context.TaxonomyPostTypes.Where(x => x.PostTypeId == id).ToListAsync();
 
             return View(postType);
         }
@@ -97,10 +97,10 @@ namespace dgPadCms.Areas.Admin.Controllers
             }
             if (taxonomyIdList == null) return View(postType);
 
-            var oldTax = await context.taxonomyPostTypes.Where(x => x.PostTypeId == postType.PostTypeId).ToListAsync();
+            var oldTax = await context.TaxonomyPostTypes.Where(x => x.PostTypeId == postType.PostTypeId).ToListAsync();
             foreach (var tax in oldTax)
             {
-                context.taxonomyPostTypes.Remove(tax);
+                context.TaxonomyPostTypes.Remove(tax);
             }
             await context.SaveChangesAsync();
 

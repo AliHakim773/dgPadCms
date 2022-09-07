@@ -7,11 +7,11 @@ namespace dgPadCms.Models
     {
         public int PostId { get; set; }
 
-        public string Title { get; set; }
+        public string PostTitle { get; set; }
 
         public int PostTypeId { get; set; }
 
-        public DateTime CreationDate { get; set; }
+        public string CreationDate { get; set; }
 
         public string Details { get; set; }
 

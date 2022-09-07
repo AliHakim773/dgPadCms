@@ -53,8 +53,8 @@ namespace dgPadCms.Infrastructure
         public DbSet<Term> Terms { get; set; }
         public DbSet<PostType> PostTypes { get; set; }
         public DbSet<Post> Posts { get; set; }
-        public DbSet<TaxonomyPostType> taxonomyPostTypes { get; set; }
-        public DbSet<PostTerm> postTerms { get; set; }
+        public DbSet<TaxonomyPostType> TaxonomyPostTypes { get; set; }
+        public DbSet<PostTerm> PostTerms { get; set; }
 
     }
 }
