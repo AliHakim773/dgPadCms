@@ -121,7 +121,7 @@ namespace dgPadCms.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Post post, List<int> termIdList)
         {
-            post.CreationDate = DateTime.Now.ToString("dd/MM/yyyy h:mm tt") + " edited";
+            post.CreationDate = DateTime.Now.ToString("dd/MM/yyyy h:mm tt") + " (edited)";
 
             context.Update(post);
             await context.SaveChangesAsync();
@@ -151,3 +151,6 @@ namespace dgPadCms.Areas.Admin.Controllers
         }
     }
 }
+
+
+
