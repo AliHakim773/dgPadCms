@@ -25,49 +25,42 @@ namespace dgPadCms.Areas.Admin.Controllers
         // GET /admin/posts
         public async Task<IActionResult> Index()
         {
-            var posts = await context.Posts.OrderByDescending(p => p.PostId).ToListAsync();
+            var posts = await context.Posts.OrderByDescending(p => p.PostId).Include(x => x.PostType).ToListAsync();
             return View(posts);
         }
 
-        // GET /admin/posts/choose
-        public IActionResult Choose()
+        // GET /admin/posts/create
+        public async Task<ActionResult> Create(int? postTypeId = null)
         {
-            ViewBag.PostTypeId = new SelectList(context.PostTypes.OrderBy(x => x.Title), "PostTypeId", "Title");
-
-            return View();
-        }
-
-        // POST /admin/posts/choose
-        [HttpPost]
-        [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> Choose(int pts)
-        {
-            if (pts == 0)
+            ViewBag.PostTypeId = postTypeId;
+            if (!postTypeId.HasValue)
             {
-                ModelState.AddModelError("", "Choose a Post Type");
-                ViewBag.PostTypeId = new SelectList(context.PostTypes.OrderBy(x => x.Title), "PostTypeId", "Title");
+                ViewBag.PostType = await context.PostTypes.ToListAsync();
                 return View();
             }
-            var pt = await context.PostTypes.FindAsync(pts);
-            return RedirectToAction("Create", pt);
-        }
 
-        // GET /admin/posts/create
-        public async Task<ActionResult> Create(PostType pt)
-        {
-            ViewBag.PostType = pt;
-            var postTypesTaxonomies = await context.TaxonomyPostTypes.Where(x => x.PostTypeId == pt.PostTypeId).Include(x => x.Taxonomy).ToListAsync();
-            List<CreatePostViewModel> createPostViewModels = new List<CreatePostViewModel>();
+            var postType = await context.PostTypes.FindAsync(postTypeId);
+            ViewBag.PostType = postType;
+            
+            var postTypesTaxonomies = await context.TaxonomyPostTypes
+                .Where(x => x.PostTypeId == postTypeId)
+                .ToListAsync();
+
+            List<int> taxonomiesId = new List<int>();
+
             foreach (var i in postTypesTaxonomies)
             {
-                createPostViewModels.Add(new CreatePostViewModel()
-                {
-                    taxonomy = i.Taxonomy,
-                    terms = new SelectList(context.Terms.Where(x => x.TaxonomyId == i.TaxonomyId).Include(x => x.Taxonomy), "TermId", "Name"),
-            });
+                taxonomiesId.Add(i.TaxonomyId);
             }
-            ViewBag.CreatePostViewModels = createPostViewModels;
-            return View();
+
+            var terms = await context.Terms
+                .Where(x => taxonomiesId.Contains(x.TaxonomyId))
+                .ToListAsync();
+
+            ViewBag.Terms = terms;
+
+
+                return View();
         }
 
         // POST /admin/posts/create
@@ -75,16 +68,16 @@ namespace dgPadCms.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Post post, List<int> termIdList)
         {
-            post.CreationDate = DateTime.Now.ToString("yyyy - MM - dd hh: mm");
+            post.CreationDate = DateTime.Now.ToString("dd/MM/yyyy h:mm tt");
 
             context.Add(post);
             await context.SaveChangesAsync();
 
-            foreach (var term in termIdList)
+            foreach (var id in termIdList)
             {
                 PostTerm postTerm = new PostTerm()
                 {
-                    TermId = term,
+                    TermId = id,
                     PostId = post.PostId,
                 };
 
@@ -92,6 +85,68 @@ namespace dgPadCms.Areas.Admin.Controllers
             }
             await context.SaveChangesAsync();
 
+            return RedirectToAction("Index");
+        }
+
+        // GET /admin/posts/edit/id
+        public async Task<ActionResult> Edit(int postId, int postTypeId)
+        {
+
+            var post = await context.Posts.Include(x => x.PostType).FirstOrDefaultAsync(x => x.PostId == postId);
+            ViewBag.PostType = await context.PostTypes.FindAsync(post.PostTypeId);
+
+            var postTypesTaxonomies = await context.TaxonomyPostTypes
+                .Where(x => x.PostTypeId == postId)
+                .ToListAsync();
+
+            List<int> taxonomiesId = new List<int>();
+
+            foreach (var i in postTypesTaxonomies)
+            {
+                taxonomiesId.Add(i.TaxonomyId);
+            }
+
+            var terms = await context.Terms
+                .Where(x => taxonomiesId.Contains(x.TaxonomyId))
+                .ToListAsync();
+
+            ViewBag.Terms = terms;
+
+
+            return View(post);
+        }
+
+        // POST /admin/posts/edit/id
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Post post, List<int> termIdList)
+        {
+            post.CreationDate = DateTime.Now.ToString("dd/MM/yyyy h:mm tt") + " edited";
+
+            context.Update(post);
+            await context.SaveChangesAsync();
+
+            foreach (var id in termIdList)
+            {
+                PostTerm postTerm = new PostTerm()
+                {
+                    TermId = id,
+                    PostId = post.PostId,
+                };
+
+                context.Update(postTerm);
+            }
+            await context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
+
+        // GET /admin/posts/delete/id
+        public async Task<IActionResult> Delete(int id)
+        {
+            var post = await context.Posts.FindAsync(id);
+            context.Posts.Remove(post);
+            await context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
     }
