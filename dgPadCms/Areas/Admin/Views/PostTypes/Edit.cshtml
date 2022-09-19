@@ -30,20 +30,22 @@
                         bool isChecked = false;
                         foreach (var checkedTax in ViewBag.isChecked) {
                             if (tax.TaxonomyId == checkedTax.TaxonomyId)
-                            {
                                 isChecked = true;
-                            }
                         }
                         <tr>
                             <td>
                                 <label class="control-label">@tax.Name</label>
                             </td>
                             <td>         
-                                @if (isChecked){
+                                @if (isChecked)
+                                {
                                     <input type="checkbox" value="@tax.TaxonomyId" name="taxonomyIdList" class="form-control" checked/>
-                                }else{
+                                }
+                                else
+                                {
                                   <input type="checkbox" value="@tax.TaxonomyId" name="taxonomyIdList" class="form-control"/>                             
                                 }
+                                
                             </td>
                         </tr>
                     }

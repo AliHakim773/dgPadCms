@@ -36,7 +36,7 @@ namespace dgPadCms.Areas.Admin.Controllers
         }
 
         // GET /admin/posttypes/create
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create()   
         { 
 
             ViewBag.taxonomies = await context.Taxonomies.ToListAsync();
@@ -49,12 +49,16 @@ namespace dgPadCms.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PostType postType, List<int> taxonomyIdList)
         {
+            ViewBag.taxonomies = await context.Taxonomies.ToListAsync();
             if (!ModelState.IsValid)
             {
                 return View(postType);
             }
-            if (taxonomyIdList == null) return View(postType);
-
+            if (taxonomyIdList.Count() == 0)
+            {
+                ModelState.AddModelError("", "Choose the Taxonomies Needed");
+                return View(postType);
+            }
 
 
             context.Add(postType);
@@ -91,17 +95,22 @@ namespace dgPadCms.Areas.Admin.Controllers
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Edit(PostType postType, List<int> taxonomyIdList)
         {
+            ViewBag.taxonomies = await context.Taxonomies.ToListAsync();
+            ViewBag.isChecked = await context.TaxonomyPostTypes.Where(x => x.PostTypeId == postType.PostTypeId).ToListAsync();
+
             if (!ModelState.IsValid)
             {
                 return View(postType);
             }
-            if (taxonomyIdList == null) return View(postType);
+            if (taxonomyIdList.Count() == 0)
+            {
+                ModelState.AddModelError("", "Choose the Taxonomies Needed");
+                return View(postType); ;
+            }
 
             var oldTax = await context.TaxonomyPostTypes.Where(x => x.PostTypeId == postType.PostTypeId).ToListAsync();
             foreach (var tax in oldTax)
-            {
                 context.TaxonomyPostTypes.Remove(tax);
-            }
             await context.SaveChangesAsync();
 
             context.Update(postType);

@@ -228,6 +228,9 @@ namespace dgPadCms.Migrations
                     b.Property<string>("Details")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PostTitle")
                         .HasColumnType("nvarchar(max)");
 

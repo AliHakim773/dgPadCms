@@ -1,12 +1,14 @@
 ﻿using dgPadCms.Infrastructure;
 using dgPadCms.Models;
 using dgPadCms.Models.ViewModels;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,9 +18,11 @@ namespace dgPadCms.Areas.Admin.Controllers
     public class PostsController : Controller
     {
         private readonly dgPadContext context;
-        public PostsController(dgPadContext context)
+        private readonly IWebHostEnvironment webHostEnvironment;
+        public PostsController(dgPadContext context, IWebHostEnvironment webHostEnvironment)
         {
             this.context = context;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
 
@@ -69,6 +73,19 @@ namespace dgPadCms.Areas.Admin.Controllers
         public async Task<IActionResult> Create(Post post, List<int> termIdList)
         {
             post.CreationDate = DateTime.Now.ToString("dd/MM/yyyy h:mm tt");
+
+            string imageName = "noimage.png";
+            if (post.ImageUpload != null)
+            {
+                string uploadsDir = Path.Combine(webHostEnvironment.WebRootPath, "media/posts");
+                imageName = Guid.NewGuid().ToString() + "_" + post.ImageUpload.FileName;
+                string filePath = Path.Combine(uploadsDir, imageName);
+                FileStream fs = new FileStream(filePath, FileMode.Create);
+                await post.ImageUpload.CopyToAsync(fs);
+                fs.Close();
+            }
+
+            post.Image = imageName;
 
             context.Add(post);
             await context.SaveChangesAsync();
@@ -122,6 +139,27 @@ namespace dgPadCms.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(Post post, List<int> termIdList)
         {
             post.CreationDate = DateTime.Now.ToString("dd/MM/yyyy h:mm tt") + " (edited)";
+
+            if (post.ImageUpload != null)
+            {
+                string uploadsDir = Path.Combine(webHostEnvironment.WebRootPath, "media/posts");
+
+                if (!string.Equals(post.Image, "noimage.png"))
+                {
+                    string oldImagePath = Path.Combine(uploadsDir, post.Image);
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+
+                }
+                string imageName = Guid.NewGuid().ToString() + "_" + post.ImageUpload.FileName;
+                string filePath = Path.Combine(uploadsDir, imageName);
+                FileStream fs = new FileStream(filePath, FileMode.Create);
+                await post.ImageUpload.CopyToAsync(fs);
+                fs.Close();
+                post.Image = imageName;
+            }
 
             context.Update(post);
             await context.SaveChangesAsync();
