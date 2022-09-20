@@ -1,12 +1,15 @@
 ﻿using dgPadCms.Infrastructure;
 using dgPadCms.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace dgPadCms.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Editor, Admin")]
     [Area("Admin")]
     public class TaxonomiesController : Controller
     {
