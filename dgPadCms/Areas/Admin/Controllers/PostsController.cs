@@ -33,6 +33,19 @@ namespace dgPadCms.Areas.Admin.Controllers
             return View(posts);
         }
 
+        // GET /admin/posts/details/is
+        public async Task<IActionResult> Details(int id)
+        {
+            var post = await context.Posts.FindAsync(id);
+            ViewBag.Terms = await context.TaxonomyPostTypes
+                .Where(x => x.PostTypeId == id)
+                .Include(x => x.Taxonomy)
+                .ToListAsync();
+            ViewBag.PostType = await context.PostTypes.FindAsync(post.PostTypeId);
+
+            return View(post);
+        }
+
         // GET /admin/posts/create
         public async Task<ActionResult> Create(int? postTypeId = null)
         {
@@ -113,7 +126,7 @@ namespace dgPadCms.Areas.Admin.Controllers
             ViewBag.PostType = await context.PostTypes.FindAsync(post.PostTypeId);
 
             var postTypesTaxonomies = await context.TaxonomyPostTypes
-                .Where(x => x.PostTypeId == postId)
+                .Where(x => x.PostTypeId == postTypeId)
                 .ToListAsync();
 
             List<int> taxonomiesId = new List<int>();

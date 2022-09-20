@@ -1,0 +1,58 @@
+﻿@model dgPadPosts.Models.PostTypesViewModel
+@{
+    ViewData["Title"] = "PostTypes";
+}
+
+<main id="main">
+    <section>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-9" data-aos="fade-up">
+                    <h3 class="category-title">Post Type: @Model.postType.Title</h3>
+
+                    @foreach(var i in Model.posts){
+                        <div class="d-md-flex post-entry-2 half">
+                        <a asp-controller="Home" asp-action="PostDetails" asp-route-id="@i.PostId" class="me-4 thumbnail">
+                                <img src="/media/posts/@i.Image" alt="@i.Image" class="img-fluid">
+                        </a>
+                        <div>
+                            <div class="post-meta"><span class="date">@i.PostType.Title</span> <span class="mx-1">&bullet;</span> <span>@i.CreationDate</span></div>
+                            <h3><a href="single-post.html">@i.PostTitle</a></h3>
+                            @Html.Raw(i.Summary)
+                        </div>
+                    </div>
+                    }
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="aside-block">
+                        <h3 class="aside-title">Post Types</h3>
+                        <ul class="aside-links list-unstyled">
+                            @foreach (var i in Model.postTypes)
+                           {
+                            <li><a asp-controller="Home" asp-action="PostTypes" asp-route-id="@i.PostTypeId">
+                                <i class="bi bi-chevron-right"></i> @i.Title
+                                </a></li>
+                           }
+                            
+                        </ul>
+                    </div><!-- End Categories -->
+
+                    <div class="aside-block">
+                        <h3 class="aside-title">Terms</h3>
+                        <ul class="aside-tags list-unstyled">
+                            @foreach( var i in Model.terms){
+                            <li><a href="#">@i.Name</a></li>
+                            }
+                        </ul>
+                    </div><!-- End Tags -->
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>

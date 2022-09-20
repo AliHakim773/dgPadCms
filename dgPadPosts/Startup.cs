@@ -1,12 +1,15 @@
+using dgPadCms.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -26,6 +29,9 @@ namespace dgPadPosts
         {
             services.AddControllersWithViews();
 
+            services.AddDbContext<dgPadContext>(options => options.UseSqlServer
+              (Configuration.GetConnectionString("dgPadContext")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +49,12 @@ namespace dgPadPosts
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath,"..\\dgPadCms/wwwroot/media")),
+                RequestPath = "/media"
+            });
 
             app.UseRouting();
 

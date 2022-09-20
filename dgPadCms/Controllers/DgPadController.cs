@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace dgPadCms.Controllers
 {
-    public class HomeController : Controller
+    public class DgPadController : Controller
     { 
 
         public IActionResult Index()

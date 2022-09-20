@@ -39,7 +39,7 @@ namespace dgPadCms.Areas.Admin.Controllers
         public async Task<IActionResult> Create()   
         { 
 
-            ViewBag.taxonomies = await context.Taxonomies.ToListAsync();
+            ViewBag.taxonomies = await context.Taxonomies.OrderBy(x => x.Name).ToListAsync();
 
             return View();
         }
@@ -84,7 +84,7 @@ namespace dgPadCms.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var postType = await context.PostTypes.FindAsync(id);
-            ViewBag.taxonomies = await context.Taxonomies.ToListAsync();
+            ViewBag.taxonomies = await context.Taxonomies.OrderBy(x => x.Name).ToListAsync();
             ViewBag.isChecked = await context.TaxonomyPostTypes.Where(x => x.PostTypeId == id).ToListAsync();
 
             return View(postType);

@@ -70,8 +70,12 @@ namespace dgPadCms.Areas.Admin.Controllers
             if (!ModelState.IsValid)
                 return View(taxonomy);
 
-            var name = await context.Taxonomies.FirstOrDefaultAsync(x => x.Name == taxonomy.Name);
-            var code = await context.Taxonomies.FirstOrDefaultAsync(x => x.Code == taxonomy.Code);
+            var name = await context.Taxonomies
+                .Where(x => x.TaxonomyId != taxonomy.TaxonomyId)
+                .FirstOrDefaultAsync(x => x.Name == taxonomy.Name);
+            var code = await context.Taxonomies
+                .Where(x => x.TaxonomyId != taxonomy.TaxonomyId)
+                .FirstOrDefaultAsync(x => x.Code == taxonomy.Code);
             if (name != null)
             {
                 ModelState.AddModelError("", "This Taxonomy already exist");

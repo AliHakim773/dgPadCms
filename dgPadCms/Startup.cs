@@ -77,7 +77,7 @@ namespace dgPadCms
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=DgPad}/{action=Index}/{id?}");
             });
         }
     }

@@ -11,6 +11,7 @@ namespace dgPadCms.Models
         [Required]
         public string Name { get; set; }
 
+        [Required]
         public string Code { get; set; }
 
         public ICollection<Term> Terms { get; set; }

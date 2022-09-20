@@ -10,6 +10,7 @@ namespace dgPadCms.Models
         [Required]
         public string Title { get; set; }
 
+        [Required]
         public string Code { get; set; }
 
         public ICollection<TaxonomyPostType> TaxonomyPostTypes { get; set; }

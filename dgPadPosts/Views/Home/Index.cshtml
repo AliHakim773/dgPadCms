@@ -1,8 +1,300 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model dgPadPosts.Models.IndexViewModel
+@{
+    ViewBag.Title = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+
+<!-- ======= Hero Slider Section ======= -->
+<section id="hero-slider" class="hero-slider">
+<div class="container-md" data-aos="fade-in">
+    <div class="row">
+    <div class="col-12">
+        <div class="swiper sliderFeaturedPosts">
+        <div class="swiper-wrapper">
+            @foreach (var i in Model.carousel){
+            <div class="swiper-slide">
+            <a
+                asp-controller="Home" asp-action="PostDetails" asp-route-id="@i.PostId"
+                class="img-bg d-flex align-items-end"
+                style="
+                background-image: url('media/posts/@i.Image');
+                "
+            >
+                <div class="img-bg-inner">
+                <h2>
+                    @i.PostTitle
+                </h2>
+                <p>
+                    @Html.Raw(i.Summary)
+                </p>
+                </div>
+            </a>
+            </div>
+                        }
+        </div>
+        <div class="custom-swiper-button-next">
+            <span class="bi-chevron-right"></span>
+        </div>
+        <div class="custom-swiper-button-prev">
+            <span class="bi-chevron-left"></span>
+        </div>
+
+        <div class="swiper-pagination"></div>
+        </div>
+    </div>
+    </div>
 </div>
+</section>
+<!-- End Hero Slider Section -->
+
+<!-- ======= Post Grid Section ======= -->
+<section id="posts" class="posts">
+<div class="container" data-aos="fade-up">
+    <div class="row g-5">
+    <div class="col-lg-4">
+        <div class="post-entry-1 lg">
+                    <a asp-controller="Home" asp-action="PostDetails" asp-route-id="@Model.posts[0].PostId">
+                        <img src="media/posts/@Model.posts[0].Image"
+            alt=""
+            class="img-fluid"
+        /></a>
+        <div class="post-meta">
+                        <span class="date">@Model.posts[0].PostType.Title</span>
+            <span class="mx-1">&bullet;</span> <span>@Model.posts[0].CreationDate</span>
+        </div>
+        <h2>
+            <a asp-controller="Home" asp-action="PostDetails" asp-route-id="@Model.posts[0].PostId">
+            @Model.posts[0].PostTitle
+        </a>
+        </h2>
+        <p class="mb-4 d-block">
+            @Html.Raw(Model.posts[0].Summary)
+        </p>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="row g-5">
+        <div class="col-lg-4 border-start custom-border">
+            <div class="post-entry-1">
+                <a asp-controller="Home" asp-action="PostDetails" asp-route-id="@Model.posts[1].PostId">
+                <img src="media/posts/@Model.posts[1].Image"
+                alt=""
+                class="img-fluid"
+            /></a>
+            <div class="post-meta">
+                <span class="date">@Model.posts[1].PostType.Title</span>
+                <span class="mx-1">&bullet;</span>
+                <span>@Model.posts[1].CreationDate</span>
+            </div>
+            <h2>
+                <a asp-controller="Home" asp-action="PostDetails" asp-route-id="@Model.posts[1].PostId">
+                                    @Model.posts[1].PostTitle
+                </a>
+            </h2>
+            </div>
+            <div class="post-entry-1">
+                <a asp-controller="Home" asp-action="PostDetails" asp-route-id="@Model.posts[2].PostId">
+                <img src="media/posts/@Model.posts[2].Image"
+                alt=""
+                class="img-fluid"
+            /></a>
+            <div class="post-meta">
+                <span class="date">@Model.posts[2].PostType.Title</span>
+                <span class="mx-1">&bullet;</span>
+                <span>@Model.posts[2].CreationDate</span>
+            </div>
+            <h2>
+                <a asp-controller="Home" asp-action="PostDetails" asp-route-id="@Model.posts[2].PostId">
+                                    @Model.posts[2].PostTitle
+                </a>
+            </h2>
+            </div>
+            <div class="post-entry-1">
+            <a asp-controller="Home" asp-action="PostDetails" asp-route-id="@Model.posts[3].PostId">
+                <img src="media/posts/@Model.posts[3].Image"
+                        alt=""
+                        class="img-fluid" />
+            </a>
+            <div class="post-meta">
+                <span class="date">@Model.posts[3].PostType.Title</span>
+                <span class="mx-1">&bullet;</span>
+                <span>@Model.posts[3].CreationDate</span>
+            </div>
+            <h2>
+                <a asp-controller="Home" asp-action="PostDetails" asp-route-id="@Model.posts[3].PostId">
+                    @Model.posts[3].PostTitle
+                </a>
+            </h2>
+        </div>
+        </div>
+        <div class="col-lg-4 border-start custom-border">
+            <div class="post-entry-1">
+                <a asp-controller="Home" asp-action="PostDetails" asp-route-id="@Model.posts[4].PostId">
+                    <img src="media/posts/@Model.posts[4].Image"
+                            alt=""
+                            class="img-fluid" />
+                </a>
+                <div class="post-meta">
+                    <span class="date">@Model.posts[4].PostType.Title</span>
+                    <span class="mx-1">&bullet;</span>
+                    <span>@Model.posts[4].CreationDate</span>
+                </div>
+                <h2>
+                    <a asp-controller="Home" asp-action="PostDetails" asp-route-id="@Model.posts[4].PostId">
+                        @Model.posts[4].PostTitle
+                    </a>
+                </h2>
+            </div>
+            <div class="post-entry-1">
+                <a asp-controller="Home" asp-action="PostDetails" asp-route-id="@Model.posts[5].PostId">
+                    <img src="media/posts/@Model.posts[5].Image"
+                            alt=""
+                            class="img-fluid" />
+                </a>
+                <div class="post-meta">
+                    <span class="date">@Model.posts[5].PostType.Title</span>
+                    <span class="mx-1">&bullet;</span>
+                    <span>@Model.posts[5].CreationDate</span>
+                </div>
+                <h2>
+                    <a asp-controller="Home" asp-action="PostDetails" asp-route-id="@Model.posts[5].PostId">
+                        @Model.posts[5].PostTitle
+                    </a>
+                </h2>
+            </div>
+            <div class="post-entry-1">
+                <a asp-controller="Home" asp-action="PostDetails" asp-route-id="@Model.posts[6].PostId">
+                    <img src="media/posts/@Model.posts[6].Image"
+                            alt=""
+                            class="img-fluid" />
+                </a>
+                <div class="post-meta">
+                    <span class="date">@Model.posts[6].PostType.Title</span>
+                    <span class="mx-1">&bullet;</span>
+                    <span>@Model.posts[6].CreationDate</span>
+                </div>
+                <h2>
+                    <a asp-controller="Home" asp-action="PostDetails" asp-route-id="@Model.posts[6].PostId">
+                        @Model.posts[6].PostTitle
+                    </a>
+                </h2>
+            </div>  
+        </div>
+        </div>
+    </div>
+    </div>
+    <!-- End .row -->
+</div>
+</section>
+<!-- End Post Grid Section -->
+
+<!-- ======= Post Type Section ======= -->
+@foreach ( var p in Model.postsOfPostTypes)
+{
+    <section class="category-section">
+        <div class="container" data-aos="fade-up">
+            <div
+            class="section-header d-flex justify-content-between align-items-center mb-5"
+            >
+            <h2>@p.postType.Title</h2>
+            <div><a href="category.html" class="more">See All @p.postType.Title</a></div>
+            </div>
+
+            <div class="row">
+            <div class="col-md-9">
+                <div class="d-lg-flex post-entry-2">
+                <a
+                    asp-controller="Home" asp-action="PostDetails" asp-route-id="@p.posts[0].PostId"
+                    class="me-4 thumbnail mb-4 mb-lg-0 d-inline-block"
+                >
+                    <img
+                    src="/media/posts/@p.posts[0].Image"
+                    alt=""
+                    class="img-fluid"
+                    />
+                </a>
+                <div>
+                    <div class="post-meta">
+                    <span class="date">@p.postType.Title</span>
+                    <span class="mx-1">&bullet;</span> <span>@p.posts[0].CreationDate</span>
+                    </div>
+                    <h3>
+                    <a href="single-post.html">@p.posts[0].PostTitle</a>
+                    </h3>
+                    <p>
+                    @Html.Raw(p.posts[0].Summary)
+                    </p>
+                </div>
+                </div>
+
+                <div class="row">
+                <div class="col-lg-4">
+                    <div class="post-entry-1 border-bottom">
+                    <a asp-controller="Home" asp-action="PostDetails" asp-route-id="@p.posts[1].PostId"
+                        ><img
+                        src="/media/posts/@p.posts[1].Image"
+                        alt=""
+                        class="img-fluid"
+                    /></a>
+                    <div class="post-meta">
+                        <span class="date">@p.postType.Title</span>
+                        <span class="mx-1">&bullet;</span>
+                        <span>@p.posts[1].CreationDate</span>
+                    </div>
+                    <h2 class="mb-2">
+                        <a asp-controller="Home" asp-action="PostDetails" asp-route-id="@p.posts[1].PostId"
+                        >@p.posts[1].PostTitle</a
+                        >
+                    </h2>
+                    <p class="mb-4 d-block">
+                        @Html.Raw(p.posts[1].Summary)
+                    </p>
+                    </div>
+
+                    <div class="post-entry-1">
+                    <div class="post-meta">
+                        <span class="date">@p.postType.Title</span>
+                        <span class="mx-1">&bullet;</span>
+                        <span>@p.posts[2].CreationDate</span>
+                    </div>
+                    <h2 class="mb-2">
+                        <a asp-controller="Home" asp-action="PostDetails" asp-route-id="@p.posts[2].PostId"
+                        >@p.posts[2].PostTitle</a
+                        >
+                    </h2>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="post-entry-1">
+                    <a asp-controller="Home" asp-action="PostDetails" asp-route-id="@p.posts[3].PostId"
+                        ><img
+                        src="/media/posts/@p.posts[3].Image"
+                        alt=""
+                        class="img-fluid"
+                    /></a>
+                    <div class="post-meta">
+                        <span class="date">@p.postType.Title</span>
+                        <span class="mx-1">&bullet;</span>
+                        <span>@p.posts[3].CreationDate</span>
+                    </div>
+                    <h2 class="mb-2">
+                        <a asp-controller="Home" asp-action="PostDetails" asp-route-id="@p.posts[3].PostId"
+                        >@p.posts[3].PostTitle</a
+                        >
+                    </h2>
+                    <p class="mb-4 d-block">
+                        @Html.Raw(p.posts[3].Summary)
+                    </p>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </section>
+}
+<!-- End Post Type Section -->
+

@@ -2,44 +2,222 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - dgPadPosts</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <title>@ViewData["Title"]</title>
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
+
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon" />
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+          rel="stylesheet" />
+
+    <!-- Vendor CSS Files -->
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css"
+          rel="stylesheet" />
+    <link href="~/vendor/bootstrap-icons/bootstrap-icons.css"
+          rel="stylesheet" />
+    <link href="~/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+    <link href="~/vendor/glightbox/css/glightbox.min.css"
+          rel="stylesheet" />
+    <link href="~/vendor/aos/aos.css" rel="stylesheet" />
+
+    <!-- Template Main CSS Files -->
+    <link href="~/css/variables.css" rel="stylesheet" />
+    <link href="~/css/main.css" rel="stylesheet" />
 </head>
+
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">dgPadPosts</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+    <!-- ======= Header ======= -->
+    <header id="header" class="header d-flex align-items-center fixed-top">
+        <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+            <a asp-controller="Home" asp-action="Index" class="logo d-flex align-items-center">
+                <!-- Uncomment the line below if you also wish to use an image logo -->
+                <!-- <img src="assets/img/logo.png" alt=""> -->
+                <h1>DgPad</h1>
+            </a>
+
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="dropdown">
+                        <a>
+                            <span>Post Types</span>
+                            <i class="bi bi-chevron-down dropdown-indicator"></i>
+                        </a>
+                        <ul>
+                            @using dgPadCms.Infrastructure
+                            @inject dgPadContext context
+                            @{
+                                var pt = context.PostTypes.OrderBy(x => x.Title).ToList();
+                            }
+                            @foreach (var i in pt){
+                            <li><a asp-controller="Home" asp-action="PostTypes" asp-route-id="@i.PostTypeId" >@i.Title</a></li>
+                            }
+                        </ul>
+                    </li>
+
+                    <li><a asp-controller="Home" asp-action="About">About</a></li>
+                    <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                </ul>
+            </nav>
+            <!-- .navbar -->
+
+            <div class="position-relative">
+                <a href="#" class="mx-2 js-search-open">
+                    <span class="bi-search"></span>
+                </a>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+
+                <!-- ======= Search Form ======= -->
+                <div class="search-form-wrap js-search-form-wrap">
+                    <form action="search-result.html" class="search-form">
+                        <span class="icon bi-search"></span>
+                        <input type="text" placeholder="Search" class="form-control" />
+                        <button class="btn js-search-close">
+                            <span class="bi-x"></span>
+                        </button>
+                    </form>
                 </div>
+                <!-- End Search Form -->
             </div>
-        </nav>
+        </div>
     </header>
+    <!-- End Header -->
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" id="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - dgPadPosts - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+        <div class="footer-content">
+            <div class="container">
+                <div class="row g-5">
+                    <div class="col-lg-4">
+                        <h3 class="footer-heading">About DgPad</h3>
+                        <p>
+                            If you don’t feel ready to join our bootcamps yet, we encourage beginners and career shifters
+                            to start from the preparatory course. We have put together a prep course for each bootcamp,
+                            which is designed to give you the foundations of programming or data science. Successfully
+                            finishing the course will guarantee you a seat in the upcoming bootcamp.
+                        </p>
+                        <p>
+                            <a asp-controller="Home" asp-action="About" class="footer-link-more">Learn More</a>
+                        </p>
+                    </div>
+                    <div class="col-6 col-lg-2">
+                        <h3 class="footer-heading">Navigation</h3>
+                        <ul class="footer-links list-unstyled">
+                            <li>
+                                <a asp-controller="Home" asp-action="Index"><i class="bi bi-chevron-right"></i> Home</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Home" asp-action="PostTypes"><i class="bi bi-chevron-right"></i> Post Types</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Home" asp-action="About"><i class="bi bi-chevron-right"></i> About us</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Home" asp-action="Contact"><i class="bi bi-chevron-right"></i> Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-6 col-lg-2">
+                        <h3 class="footer-heading">Categories</h3>
+                        <ul class="footer-links list-unstyled">
+                            @foreach(var i in pt){
+                            <li>
+                                <a asp-controller="Home" asp-action="PostTypes" asp-route-id="@i.PostTypeId">
+                                        <i class="bi bi-chevron-right"></i> @i.Title
+                                </a>
+                            </li>
+                            }
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <h3 class="footer-heading">Recent Posts</h3>
+                        @{
+                            var posts = context.Posts.OrderByDescending(x => x.PostId).Take(4).ToList();
+                        }
+
+                        <ul class="footer-links footer-blog-entry list-unstyled">
+
+                        @foreach (var i in posts){
+                            <li>
+                                <a asp-controller="Home" asp-action="PostDetails" asp-route-id="@i.PostId" class="d-flex align-items-center">
+                                        <img src="/media/posts/@i.Image"
+                                         alt=""
+                                         class="img-fluid me-3" />
+                                    <div>
+                                        <div class="post-meta d-block">
+                                            <span class="date">@i.PostType.Title</span>
+                                            <span class="mx-1">&bullet;</span>
+                                            <span>@i.CreationDate</span>
+                                        </div>
+                                        <span>@i.PostTitle</span>
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-legal">
+            <div class="container">
+                <div class="row justify-content-between">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        <div class="copyright">
+                            © Copyright <strong><span>Ali Hakim</span></strong>. All Rights Reserved
+                        </div>
+
+                        <div class="credits">
+                            <!-- All the links in the footer should remain intact. -->
+                            <!-- You can delete the links only if you purchased the pro version. -->
+                            <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/herobiz-bootstrap-business-template/ -->
+                            Designed by
+                            <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="social-links mb-3 mb-lg-0 text-center text-md-end">
+                            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="#" class="instagram">
+                                <i class="bi bi-instagram"></i>
+                            </a>
+                            <a href="#" class="google-plus"><i class="bi bi-skype"></i></a>
+                            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </footer>
+
+    <a href="#"
+       class="scroll-top d-flex align-items-center justify-content-center">
+        <i class="bi bi-arrow-up-short"></i>
+    </a>
+
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="~/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="~/vendor/aos/aos.js"></script>
+    <script src="~/vendor/php-email-form/validate.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

@@ -11,14 +11,17 @@ namespace dgPadCms.Models
     {
         public int PostId { get; set; }
 
+        [Required]
         public string PostTitle { get; set; }
 
         public int PostTypeId { get; set; }
 
         public string CreationDate { get; set; }
 
+        [Required]
         public string Details { get; set; }
 
+        [Required]
         public string Summary { get; set; }
         
         public string Image { get; set; }
