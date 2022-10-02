@@ -15,7 +15,7 @@ namespace Common.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.29")
+                .HasAnnotation("ProductVersion", "3.1.28")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -44,6 +44,22 @@ namespace Common.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "fab4fac1-c546-41de-aebc-a14da6895711",
+                            ConcurrencyStamp = "1",
+                            Name = "Admin",
+                            NormalizedName = "Admin"
+                        },
+                        new
+                        {
+                            Id = "c7b013f0-5201-4317-abd8-c211f91b7330",
+                            ConcurrencyStamp = "2",
+                            Name = "Editor",
+                            NormalizedName = "Editor"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -129,6 +145,18 @@ namespace Common.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "b74ddd14-6340-4840-95c2-db12554843e5",
+                            RoleId = "fab4fac1-c546-41de-aebc-a14da6895711"
+                        },
+                        new
+                        {
+                            UserId = "b74ddd14-6340-4840-95c2-db12554843e4",
+                            RoleId = "c7b013f0-5201-4317-abd8-c211f91b7330"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -213,6 +241,38 @@ namespace Common.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "b74ddd14-6340-4840-95c2-db12554843e5",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "546533c2-6689-4e72-94a6-bcffa2d11415",
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEImnslrNtq6J0d/W0wqcUezv+CBO2aVmJxEs3A0U2W2CDmmk8tF4gdlcPoPe2JtPPQ==",
+                            PhoneNumber = "1234567890",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "86f358fe-494c-4e1d-8ef7-356f366cda93",
+                            TwoFactorEnabled = false,
+                            UserName = "Admin"
+                        },
+                        new
+                        {
+                            Id = "b74ddd14-6340-4840-95c2-db12554843e4",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "2c384fda-bd87-4444-affe-ec3c002228a0",
+                            Email = "Editor@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEGarCoD2QGJXUib21RKvvRR06+2jHSqIoa15+cdSpuNm/uRN41EnGCY96DJBzv1x1Q==",
+                            PhoneNumber = "1234567890",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "fa058bd5-57c2-40eb-9fc4-cd89906c76f8",
+                            TwoFactorEnabled = false,
+                            UserName = "Editor"
+                        });
                 });
 
             modelBuilder.Entity("dgPadCms.Models.Post", b =>

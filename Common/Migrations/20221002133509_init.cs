@@ -274,6 +274,24 @@ namespace Common.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "fab4fac1-c546-41de-aebc-a14da6895711", "1", "Admin", "Admin" },
+                    { "c7b013f0-5201-4317-abd8-c211f91b7330", "2", "Editor", "Editor" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[,]
+                {
+                    { "b74ddd14-6340-4840-95c2-db12554843e5", 0, "546533c2-6689-4e72-94a6-bcffa2d11415", "admin@gmail.com", false, false, null, null, null, "AQAAAAEAACcQAAAAEImnslrNtq6J0d/W0wqcUezv+CBO2aVmJxEs3A0U2W2CDmmk8tF4gdlcPoPe2JtPPQ==", "1234567890", false, "86f358fe-494c-4e1d-8ef7-356f366cda93", false, "Admin" },
+                    { "b74ddd14-6340-4840-95c2-db12554843e4", 0, "2c384fda-bd87-4444-affe-ec3c002228a0", "Editor@gmail.com", false, false, null, null, null, "AQAAAAEAACcQAAAAEGarCoD2QGJXUib21RKvvRR06+2jHSqIoa15+cdSpuNm/uRN41EnGCY96DJBzv1x1Q==", "1234567890", false, "fa058bd5-57c2-40eb-9fc4-cd89906c76f8", false, "Editor" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "PostTypes",
                 columns: new[] { "PostTypeId", "Code", "Title" },
                 values: new object[,]
@@ -295,35 +313,19 @@ namespace Common.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "UserId", "RoleId" },
+                values: new object[,]
+                {
+                    { "b74ddd14-6340-4840-95c2-db12554843e5", "fab4fac1-c546-41de-aebc-a14da6895711" },
+                    { "b74ddd14-6340-4840-95c2-db12554843e4", "c7b013f0-5201-4317-abd8-c211f91b7330" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Posts",
                 columns: new[] { "PostId", "CreationDate", "Details", "Image", "PostTitle", "PostTypeId", "Summary" },
                 values: new object[,]
                 {
-                    { 1, "10/10/2022 10:00 AM", @"<p>CS:GO is one of the games with the largest number of esports events. From its release, over 69 million dollars have been awarded in 3858 tournaments, and the previous iterations of the game (Counter-Strike 1.6 and Counter-Strike: Source) handed out 15 million dollars in 1200 tournaments from 2000 to 2013.
-
-                Every year, the best pro players in the world take part at the CS:GO Major Championships: Valve-sponsored events with a prize pool of $1,000,000 USD. There are also Minor Championships with a monetary prize of $50,000 that act as qualifiers for the Major. The minors are separated in 4 regions: Americas, Asia, CIS, and Europe.
-
-                The prize pool of the Majors can’t be compared to The International (Valve-sponsored Dota 2 event), but the most popular CS:GO players and teams are able to earn a huge additional income via the tournament stickers sold in-game during each Major.</p><p>#	Nickname	Name	Country	Earnings
-                1	dupreeh	Peter Rasmussen	Denmark	$1,772,722
-                2	Xyp9x	Andreas Højsleth	Denmark	$1,771,621
-                3	dev1ce	Nicolai Reedtz	Denmark	$1,737,223
-                4	gla1ve	Lukas Rossander	Denmark	$1,602,084
-                5	Magisk	Emil Reif	Demark	$1,366,181
-                6	Stewie2k	Jakey Yip	United States	$1,076,740
-                7	TACO	Epitácio de Melo	Brazil	$1,062,989
-                8	FalleN	Gabriel Toledo	Brazil	$1,059,070
-                9	fer	Fernando Alvarenga	Brazil	$1,053,170
-                10	coldzera	Marcelo David	Brazil	$1,002,401
-                11	NAF	Keith Markovic	Canada	$972,165
-                12	karrigan	Finn Andersen	Denmark	$945,035
-                13	nitr0	Nick Cannella	United States	$920,151
-                14	ELiGE	Jonathan Jablonowski	United States	$920,096
-                15	olofmeister	Olof Kajbjer	Sweden	$876,761
-                16	JW	Jesper Wecksell	Sweden	$869,960
-                17	flusha	Robin Rönnquist	Sweden	$849,868
-                18	KRiMZ	Freddy Johansson	Sweden	$840,023
-                19	Twistzz	Russel Van Dulken	Canada	$824,776
-                20	GuardiaN	Ladislav Kovács	Slovakia	$798,520</p>", "Astralis+won+FACEIT+London+Major+2018.jpg", "THE TOP 20 HIGHEST-PAID CS:GO ESPORTS PLAYERS IN THE WORLD", 1, "This list indicates the top 20 highest-paid Counter-Strike: Global Offensive players in the world. It considers only earnings from professional esports tournaments." },
                     { 14, "10/10/2022 10:00 AM", @"Today, the FDA published the FDA Voices: “FDA Continues Important Work on Substance Use and Overdose Prevention Efforts,” by Robert M. Califf, M.D., Commissioner of Food and Drugs. The National Academies for Science, Engineering, and Medicine (NASEM) report ""Pain Management and the Opioid Epidemic,"" contained recommendations for the FDA’s consideration, as well as broader recommendations for federal agencies, state and local governments, and health-related organizations. As we continue to prioritize our substance use and overdose prevention efforts, the NASEM report has been and will remain an important source to consider in our decision making.
                 Today, the FDA published a Constituent Update to remind owners, operators, or agents in charge of a domestic or foreign food facility engaged in manufacturing/processing, packing, or holding food for consumption by humans or animals in the U.S, to register the facility with FDA or to renew their FDA registration between October 1 and December 31, 2022. 
                 On Thursday, the FDA approved SpectoGard, the first generic spectinomycin sulfate injectable solution for the treatment of bovine respiratory disease (pneumonia). SpectoGard contains the same active ingredient (spectinomycin sulfate) in the same concentration and dosage form as the approved brand name drug product, Adspec, which was first approved in January 1998. SpectoGard is only available by prescription because a veterinarian’s expertise is required to determine if SpectoGard is an appropriate treatment for cattle. SpectoGard is sponsored by Bimeda Animal Health Ltd.
@@ -359,49 +361,15 @@ namespace Common.Migrations
                     { 12, "10/10/2022 10:00 AM", @"This video breaks down the franchise chronologically, charting the story of Kratos from a hot headed youth, through to a captain in the Spartan army all before his grand odyssey through the Greek and Norse mythologies.
 
                 With God of War Ragnarök set to further slide the franchise’s anti-hero, Kratos, into a mythological mire, what better time to dive back into the Ghost of Sparta’s saga of gods and monsters.", "gow.jpg", "The Complete God of War Timeline Explained!", 3, "The God of War franchise has a sprawling timeline that interweaves its Great Greek Tragedy across 9 games, and 2 wildly distinct mythologies. But how does it all tie together?" },
-                    { 10, "10/10/2022 10:00 AM", @"""The shirt has become stained with political meaning since 2014,"" says Mateus Gamba Torres, a history professor at the University of Brasília.
+                    { 11, "10/10/2022 10:00 AM", @"I love Left 4 Dead, and I tend to enjoy many of the games it's clearly inspired over the years --and there are a lot. Sensing there's no end in sight to games inspired by Valve's seminal co-op horde shooter, even as Left 4 Dead 3 doesn't appear to be likely itself, I wanted to find out what makes Left 4 Dead such a milestone. More importantly, I wanted to hear it from the teams that have taken the baton from Valve and carried it in different directions, adding their own touches to the time-tested formula but always nodding back to that landmark original game.
 
-                Eight years ago, millions of Brazilians took to the streets to protest against the then-President, Dilma Rousseff, dressed in the colours of the flag as they demanded the left-winger's impeachment.
+                ""It keeps the right things simple,"" Chet Faliszek told me earlier this month about Left 4 Dead. Faliszek worked on both Left 4 Dead games at Valve, and spends these days at his new studio, Stray Bombay, building a new L4D-inspired game: The Anacrusis. The co-op shooter places a lot of the foundational L4D gameplay in a sci-fi setting akin to the original Star Trek. ""I still see games that greet you with confusing interfaces or a forced tutorial that gets in the way of inviting a friend who is new into your game. Left 4 Dead gets out of the way and lets you jump into the game and have some fun.""
 
-                Then in 2018, the colours were again used by the current president - far-right Jair Bolsonaro.
+                Faliszek was addressing a question I posed to his and four other teams, each of them having worked on games that can reasonably be called Left 4 Dead descendents. Around the world, games like Systemic Reaction's Second Extinction, Saber Interactive's World War Z, Fatshark's Warhammer: Vermintide and Darktide, and Ghost Ship Games' Deep Rock Galactic have roots that trail back to Left 4 Dead, some more than others, but all of them are undeniably inspired by it. His response was not uncommon among the group of devs I spoke to. In my interviews with the five studios, each team repeatedly cited two assets that Left 4 Dead maintains to this day: simplicity and replayability.
 
-                This year too, green, yellow and blue are the key colours at Mr Bolsonaro's rallies, with people wearing T-shirts, the national flag and accessories.
+                ""Initially [World War Z] was supposed to be a completely different game that didn’t have any resemblance to L4D,"" Saber Lead Game Designer Dmitry Grigorenko told me. ""Funny thing is, when you make a co-op shooter game about zombies, there aren’t many ways that you can go. Somewhere in the middle of the development after another playtest we sat down together as a team and said, 'Okay, our game is beginning to look a lot like L4D.''' Grigorenko said the team began to study how Left 4 Dead's famous AI Director behaved so that Saber could implement something similar.
 
-                ""The green and yellow shirt has become a symbol of those related to Bolsonaro's government,"" Mr Gamba Torres says, ""which means a good part of the population no longer identify with it.""
-
-                Former Brazilian president Lula at a campaign rally in Manaus.
-                Former Brazilian president Lula standing in front of the Brazilian flag on-screen at a campaign rally in Manaus
-                João's encounter with the shop owner is not the only reason he is now hesitant to talk politics. In Brazil, political disputes can seemingly get deadly.
-
-                In July, Marcelo Aloizio de Arruda - a supporter of former president and left-wing candidate Luiz Inácio Lula da Silva - was shot dead at his 50th birthday party, allegedly by a police officer shouting in support of right-wing President Bolsonaro.
-
-                Before he died, Mr Arruda retaliated and shot his alleged attacker - who spent some time in hospital before being sent to prison, where he awaits trial.
-
-                And on 9 September, 44-year-old Benedito Cardoso dos Santos was allegedly killed by a colleague, following a heated political discussion between the two. The 22-year-old suspect remains in police custody.
-
-                Tech programmer Ruy Araújo Souza Júnior, 43, tells BBC News he will only wear the shirt at home, to avoid being mistaken for a Bolsonaro supporter.
-
-                If ex-President Lula wins the election, he hopes the shirt will ""once again unite us and symbolise true love of our country, not a political party"".
-
-                Left-wing candidate Lula has focused on ""reclaiming"" the flag. Several of his supporters, such as singer Ludmilla, international star Anitta, and rapper Djonga, have made a point of wearing the shirt during their performances.
-
-                Djonga, who was part of Nike's official campaign for the Brazilian World Cup kit, told a crowd at one concert that wearing the shirt in public was an act of protest.
-
-                ""They [Bolsonaro supporters] think everything is theirs, they appropriate the meaning of family, they appropriate our national anthem, they appropriate everything,"" he said. ""But here's the truth: everything is ours, nothing is theirs.""
-
-                But it's not just Mr Bolsonaro's opponents who are wary of wearing the shirt.
-
-                ""I'm a patriot and right-wing. I really want to vote wearing my yellow shirt,"" says Bolsonaro supporter Alessandra Passos, 41.
-
-                But due to the tense environment between voters, she says, she is ""afraid to wear it on voting day"".", "_126896636_richarlison_getty.jpg", "Brazil election: How the famous yellow football shirt has become politicised", 2, @"When the much-awaited Brazil 2022 World Cup shirt was released in August, student João Vitor Gonçalves de Oliveira rushed to get his hands on the kit.
-
-                The 20-year-old went to the nearest store, grabbed the famous yellow and green top and took it to the till, where he was met with an excited smile.
-
-                ""The shop owner assumed I support the current government because I was buying the shirt, and started to rage against left-wing candidate Lula,"" João tells the BBC.
-
-                João does not support the government of Jair Bolsonaro, who is standing for re-election on Sunday. But buying the shirt, he realised in the store, could make people think he did.
-
-                In order to avoid confrontation, João pretended to be a Bolsonaro supporter. It was another sign that the yellow and green shirt - made famous by Pele, Ronaldo, and many others - has become a symbol of a divided nation." },
+                This was a problem that grew in scope for the team, as it had to authentically capture the look of its source material, including the mountainous swarms of undead that far outnumber the horde sizes in Left 4 Dead. ""Adding more zombies sounds simple on paper, but our zombie swarm system is incredibly complex. Zombies need to behave like a real crowd; you cannot achieve that just by increasing numbers. AI, animation and level design needs to work very well together to make sure that these sequences look like scenes in the movie.""", "left4dead.jpg", "What Made Left 4 Dead Special, According To The Devs Making Games Like It", 3, "Left 4 Dead is a trailblazing game still remembered fondly today. GameSpot spoke with several teams making games like it to try and figure out what makes it timeless." },
                     { 9, "10/10/2022 10:00 AM", @"Up for debate: Would Man City fill a Manchester XI in post-Ferguson era?
                 ""There will be zero problem, I am 100% convinced. They know what is the strategy, what they have to do for right now, the day after tomorrow, after the World Cup, next season and the next season.
 
@@ -447,15 +415,49 @@ namespace Common.Migrations
                 The Biden administration came to office with an ambitious domestic economic agenda, exemplified by the largest ever peacetime federal spending and budget deficits in its first year. While the big spending bills the administration proposed — like the American Jobs Plan and the American Families Plan — are indicative of the administration’s determination to extend a strong domestic economic recovery from the pandemic, the fact that much of the legislation has yet to pass highlights many of the domestic political and economic constraints on the administration’s agenda.
 
                 Major spending bills have been held up as the administration tries to manage competing demands from the Democratic Party’s progressive wing and its conservatives like West Virginia Senator Joe Manchin. The magnitude of the proposed spending is a challenge from the standpoint of state capacity, with long timelines separating legislation from the delivery of new programs on the ground. As USSC Non-Resident Fellow Jennifer Jackett’s review of the measures proposed under the Innovation and Competition Act and the America Competes Act suggests, the US political system continually puts the brakes on further practical action." },
-                    { 11, "10/10/2022 10:00 AM", @"I love Left 4 Dead, and I tend to enjoy many of the games it's clearly inspired over the years --and there are a lot. Sensing there's no end in sight to games inspired by Valve's seminal co-op horde shooter, even as Left 4 Dead 3 doesn't appear to be likely itself, I wanted to find out what makes Left 4 Dead such a milestone. More importantly, I wanted to hear it from the teams that have taken the baton from Valve and carried it in different directions, adding their own touches to the time-tested formula but always nodding back to that landmark original game.
+                    { 10, "10/10/2022 10:00 AM", @"""The shirt has become stained with political meaning since 2014,"" says Mateus Gamba Torres, a history professor at the University of Brasília.
 
-                ""It keeps the right things simple,"" Chet Faliszek told me earlier this month about Left 4 Dead. Faliszek worked on both Left 4 Dead games at Valve, and spends these days at his new studio, Stray Bombay, building a new L4D-inspired game: The Anacrusis. The co-op shooter places a lot of the foundational L4D gameplay in a sci-fi setting akin to the original Star Trek. ""I still see games that greet you with confusing interfaces or a forced tutorial that gets in the way of inviting a friend who is new into your game. Left 4 Dead gets out of the way and lets you jump into the game and have some fun.""
+                Eight years ago, millions of Brazilians took to the streets to protest against the then-President, Dilma Rousseff, dressed in the colours of the flag as they demanded the left-winger's impeachment.
 
-                Faliszek was addressing a question I posed to his and four other teams, each of them having worked on games that can reasonably be called Left 4 Dead descendents. Around the world, games like Systemic Reaction's Second Extinction, Saber Interactive's World War Z, Fatshark's Warhammer: Vermintide and Darktide, and Ghost Ship Games' Deep Rock Galactic have roots that trail back to Left 4 Dead, some more than others, but all of them are undeniably inspired by it. His response was not uncommon among the group of devs I spoke to. In my interviews with the five studios, each team repeatedly cited two assets that Left 4 Dead maintains to this day: simplicity and replayability.
+                Then in 2018, the colours were again used by the current president - far-right Jair Bolsonaro.
 
-                ""Initially [World War Z] was supposed to be a completely different game that didn’t have any resemblance to L4D,"" Saber Lead Game Designer Dmitry Grigorenko told me. ""Funny thing is, when you make a co-op shooter game about zombies, there aren’t many ways that you can go. Somewhere in the middle of the development after another playtest we sat down together as a team and said, 'Okay, our game is beginning to look a lot like L4D.''' Grigorenko said the team began to study how Left 4 Dead's famous AI Director behaved so that Saber could implement something similar.
+                This year too, green, yellow and blue are the key colours at Mr Bolsonaro's rallies, with people wearing T-shirts, the national flag and accessories.
 
-                This was a problem that grew in scope for the team, as it had to authentically capture the look of its source material, including the mountainous swarms of undead that far outnumber the horde sizes in Left 4 Dead. ""Adding more zombies sounds simple on paper, but our zombie swarm system is incredibly complex. Zombies need to behave like a real crowd; you cannot achieve that just by increasing numbers. AI, animation and level design needs to work very well together to make sure that these sequences look like scenes in the movie.""", "left4dead.jpg", "What Made Left 4 Dead Special, According To The Devs Making Games Like It", 3, "Left 4 Dead is a trailblazing game still remembered fondly today. GameSpot spoke with several teams making games like it to try and figure out what makes it timeless." },
+                ""The green and yellow shirt has become a symbol of those related to Bolsonaro's government,"" Mr Gamba Torres says, ""which means a good part of the population no longer identify with it.""
+
+                Former Brazilian president Lula at a campaign rally in Manaus.
+                Former Brazilian president Lula standing in front of the Brazilian flag on-screen at a campaign rally in Manaus
+                João's encounter with the shop owner is not the only reason he is now hesitant to talk politics. In Brazil, political disputes can seemingly get deadly.
+
+                In July, Marcelo Aloizio de Arruda - a supporter of former president and left-wing candidate Luiz Inácio Lula da Silva - was shot dead at his 50th birthday party, allegedly by a police officer shouting in support of right-wing President Bolsonaro.
+
+                Before he died, Mr Arruda retaliated and shot his alleged attacker - who spent some time in hospital before being sent to prison, where he awaits trial.
+
+                And on 9 September, 44-year-old Benedito Cardoso dos Santos was allegedly killed by a colleague, following a heated political discussion between the two. The 22-year-old suspect remains in police custody.
+
+                Tech programmer Ruy Araújo Souza Júnior, 43, tells BBC News he will only wear the shirt at home, to avoid being mistaken for a Bolsonaro supporter.
+
+                If ex-President Lula wins the election, he hopes the shirt will ""once again unite us and symbolise true love of our country, not a political party"".
+
+                Left-wing candidate Lula has focused on ""reclaiming"" the flag. Several of his supporters, such as singer Ludmilla, international star Anitta, and rapper Djonga, have made a point of wearing the shirt during their performances.
+
+                Djonga, who was part of Nike's official campaign for the Brazilian World Cup kit, told a crowd at one concert that wearing the shirt in public was an act of protest.
+
+                ""They [Bolsonaro supporters] think everything is theirs, they appropriate the meaning of family, they appropriate our national anthem, they appropriate everything,"" he said. ""But here's the truth: everything is ours, nothing is theirs.""
+
+                But it's not just Mr Bolsonaro's opponents who are wary of wearing the shirt.
+
+                ""I'm a patriot and right-wing. I really want to vote wearing my yellow shirt,"" says Bolsonaro supporter Alessandra Passos, 41.
+
+                But due to the tense environment between voters, she says, she is ""afraid to wear it on voting day"".", "_126896636_richarlison_getty.jpg", "Brazil election: How the famous yellow football shirt has become politicised", 2, @"When the much-awaited Brazil 2022 World Cup shirt was released in August, student João Vitor Gonçalves de Oliveira rushed to get his hands on the kit.
+
+                The 20-year-old went to the nearest store, grabbed the famous yellow and green top and took it to the till, where he was met with an excited smile.
+
+                ""The shop owner assumed I support the current government because I was buying the shirt, and started to rage against left-wing candidate Lula,"" João tells the BBC.
+
+                João does not support the government of Jair Bolsonaro, who is standing for re-election on Sunday. But buying the shirt, he realised in the store, could make people think he did.
+
+                In order to avoid confrontation, João pretended to be a Bolsonaro supporter. It was another sign that the yellow and green shirt - made famous by Pele, Ronaldo, and many others - has become a symbol of a divided nation." },
                     { 6, "10/10/2022 10:00 AM", @"We’ll see you in court
                 Want to found out the latest on a big trial? Fox News has all of the updates on court proceedings, jury verdicts, and all of the drama surrounding some of the most high-profile court cases in the country. Watch events unfold in real time with our live blog and in-court coverage of the most talked about criminal investigations in America.
 
@@ -501,6 +503,31 @@ namespace Common.Migrations
                 Previously, smaller regions had a bottom-heavy distribution, while Europe (the most populated one) had a top-heavy one. Now it should feel harder to rank up in Europe because the players in the top half of the curve have been redistributed. Instead, in North America matchmaking quality should be improved as before there was a high skill gap among players at mid-ranks.
 
                 There is certainly room for improvements, but Valve did a good job with the new rank distribution and matchmaking algorithm.", "CSGO+rank+distribution+Europe+August+2022.jpg", "CS:GO RANK DISTRIBUTION AND PERCENTAGE OF PLAYERS", 1, " realistic rank distribution in CS:GO - updated monthly. Find out the percentage of players by rank and the true value of your skill." },
+                    { 1, "10/10/2022 10:00 AM", @"<p>CS:GO is one of the games with the largest number of esports events. From its release, over 69 million dollars have been awarded in 3858 tournaments, and the previous iterations of the game (Counter-Strike 1.6 and Counter-Strike: Source) handed out 15 million dollars in 1200 tournaments from 2000 to 2013.
+
+                Every year, the best pro players in the world take part at the CS:GO Major Championships: Valve-sponsored events with a prize pool of $1,000,000 USD. There are also Minor Championships with a monetary prize of $50,000 that act as qualifiers for the Major. The minors are separated in 4 regions: Americas, Asia, CIS, and Europe.
+
+                The prize pool of the Majors can’t be compared to The International (Valve-sponsored Dota 2 event), but the most popular CS:GO players and teams are able to earn a huge additional income via the tournament stickers sold in-game during each Major.</p><p>#	Nickname	Name	Country	Earnings
+                1	dupreeh	Peter Rasmussen	Denmark	$1,772,722
+                2	Xyp9x	Andreas Højsleth	Denmark	$1,771,621
+                3	dev1ce	Nicolai Reedtz	Denmark	$1,737,223
+                4	gla1ve	Lukas Rossander	Denmark	$1,602,084
+                5	Magisk	Emil Reif	Demark	$1,366,181
+                6	Stewie2k	Jakey Yip	United States	$1,076,740
+                7	TACO	Epitácio de Melo	Brazil	$1,062,989
+                8	FalleN	Gabriel Toledo	Brazil	$1,059,070
+                9	fer	Fernando Alvarenga	Brazil	$1,053,170
+                10	coldzera	Marcelo David	Brazil	$1,002,401
+                11	NAF	Keith Markovic	Canada	$972,165
+                12	karrigan	Finn Andersen	Denmark	$945,035
+                13	nitr0	Nick Cannella	United States	$920,151
+                14	ELiGE	Jonathan Jablonowski	United States	$920,096
+                15	olofmeister	Olof Kajbjer	Sweden	$876,761
+                16	JW	Jesper Wecksell	Sweden	$869,960
+                17	flusha	Robin Rönnquist	Sweden	$849,868
+                18	KRiMZ	Freddy Johansson	Sweden	$840,023
+                19	Twistzz	Russel Van Dulken	Canada	$824,776
+                20	GuardiaN	Ladislav Kovács	Slovakia	$798,520</p>", "Astralis+won+FACEIT+London+Major+2018.jpg", "THE TOP 20 HIGHEST-PAID CS:GO ESPORTS PLAYERS IN THE WORLD", 1, "This list indicates the top 20 highest-paid Counter-Strike: Global Offensive players in the world. It considers only earnings from professional esports tournaments." },
                     { 7, "10/10/2022 10:00 AM", @"
                 Predicting that as much as Australia might have feared becoming a target of the Biden administration’s climate agenda, US political realities would “limit broader congressional legislation on climate change” and that such differences would “not in any way threaten the deep fundamental relationship between the two countries” because the administration’s efforts would mostly be limited to executive orders and rhetoric. This insight has proven correct.
                 Cautioning that trade would “not be an urgent priority for the administration relative to domestic issues” since actualised by the Biden administration leaving intact much of the Trump administration’s protectionist and inward-focused trade policies.
@@ -530,8 +557,8 @@ namespace Common.Migrations
                     { 4, 1 },
                     { 3, 2 },
                     { 3, 1 },
-                    { 2, 1 },
                     { 2, 2 },
+                    { 2, 1 },
                     { 1, 1 },
                     { 1, 3 }
                 });
@@ -541,7 +568,7 @@ namespace Common.Migrations
                 columns: new[] { "TermId", "Code", "Name", "TaxonomyId" },
                 values: new object[,]
                 {
-                    { 17, "Ukraine", "Ukraine", 4 },
+                    { 21, "GOW", "God of War", 1 },
                     { 15, "Indonesia", "Indonesia", 4 },
                     { 14, "Pakistan", "Pakistan", 4 },
                     { 13, "England", "England", 4 },
@@ -549,7 +576,7 @@ namespace Common.Migrations
                     { 11, "Russia", "Russia", 4 },
                     { 10, "Lebanon", "Lebanon", 4 },
                     { 1, "New Game", "New Game", 1 },
-                    { 21, "GOW", "God of War", 1 },
+                    { 17, "Ukraine", "Ukraine", 4 },
                     { 9, "War", "War", 3 },
                     { 7, "Crimes", "Crimes", 3 },
                     { 2, "Tournament", "Tournament", 1 },

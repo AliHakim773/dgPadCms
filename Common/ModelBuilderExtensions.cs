@@ -1,6 +1,7 @@
 ﻿using dgPadCms.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
+using System.Reflection;
 
 namespace Common
 {
@@ -645,5 +646,6 @@ namespace Common
                 }
                 );
         }
+
     }
 }
