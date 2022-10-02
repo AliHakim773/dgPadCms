@@ -1,4 +1,4 @@
-﻿using dgPadCms.Infrastructure;
+﻿using Common;
 using dgPadCms.Models;
 using dgPadCms.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;

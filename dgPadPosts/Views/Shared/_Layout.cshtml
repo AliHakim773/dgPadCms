@@ -48,11 +48,11 @@
                     <li><a asp-controller="Home" asp-action="Index">Home</a></li>
                     <li class="dropdown">
                         <a>
-                            <span>Post Types</span>
+                            <span>Categories</span>
                             <i class="bi bi-chevron-down dropdown-indicator"></i>
                         </a>
                         <ul>
-                            @using dgPadCms.Infrastructure
+                            @using Common;
                             @inject dgPadContext context
                             @{
                                 var pt = context.PostTypes.OrderBy(x => x.Title).ToList();
@@ -120,7 +120,7 @@
                                 <a asp-controller="Home" asp-action="Index"><i class="bi bi-chevron-right"></i> Home</a>
                             </li>
                             <li>
-                                <a asp-controller="Home" asp-action="PostTypes"><i class="bi bi-chevron-right"></i> Post Types</a>
+                                <a asp-controller="Home" asp-action="PostTypes"><i class="bi bi-chevron-right"></i> Categories</a>
                             </li>
                             <li>
                                 <a asp-controller="Home" asp-action="About"><i class="bi bi-chevron-right"></i> About us</a>

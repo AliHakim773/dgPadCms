@@ -1,4 +1,4 @@
-﻿using dgPadCms.Infrastructure;
+﻿using Common;
 using dgPadCms.Models;
 using dgPadPosts.Models;
 using Microsoft.AspNetCore.Mvc;

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
+using System.Data; 
 
 namespace dgPadCms.Areas.Admin.Controllers
 {
