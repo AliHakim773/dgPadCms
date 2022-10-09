@@ -9,7 +9,7 @@
             <div class="row">
 
                 <div class="col-md-9" data-aos="fade-up">
-                    <h3 class="category-title">@Model.taxonomy.Name</h3>
+                    <h3 class="category-title">@Model.name</h3>
 
                     @foreach(var i in Model.posts){
                         <div class="d-md-flex post-entry-2 half">
@@ -45,7 +45,7 @@
                         <h3 class="aside-title">Terms</h3>
                         <ul class="aside-tags list-unstyled">
                             @foreach( var i in Model.terms){
-                            <li><a href="#">@i.Name</a></li>
+                                <li><a asp-controller="Home" asp-action="PostTerm" asp-route-id="@i.TermId">@i.Name</a></li>
                             }
                         </ul>
                     </div><!-- End Tags -->

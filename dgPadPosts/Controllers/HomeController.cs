@@ -75,7 +75,39 @@ namespace dgPadPosts.Controllers
             return View(new PostTypesViewModel()
             {
                 posts = posts,
-                taxonomy = taxonomy,
+                name = taxonomy.Name,
+                terms = terms,
+                taxonomies = await context.Taxonomies
+                .OrderByDescending(x => x.TaxonomyId)
+                .ToListAsync(),
+            });
+        }
+
+        public async Task<IActionResult> PostTerm(int id)
+        {
+
+            var term = await context.Terms.FindAsync(id);
+            var terms = await context.Terms
+                .Where(x => x.TaxonomyId == id)
+                .ToListAsync();
+
+            var postTerms = await context.PostTerms.Where(x => x.TermId == id).ToListAsync();
+
+
+            List<int> postIds = new List<int>();
+            foreach (var i in postTerms)
+            {
+                postIds.Add(i.PostId);
+            }
+            postIds = postIds.Distinct().ToList();
+
+            var posts = await context.Posts.Where(x => postIds.Contains(x.PostId)).Include(x => x.PostType).ToListAsync();
+
+
+            return View("PostTypes",new PostTypesViewModel()
+            {
+                posts = posts,
+                name = term.Name,
                 terms = terms,
                 taxonomies = await context.Taxonomies
                 .OrderByDescending(x => x.TaxonomyId)

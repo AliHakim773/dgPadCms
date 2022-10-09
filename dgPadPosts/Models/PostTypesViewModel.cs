@@ -8,6 +8,6 @@ namespace dgPadPosts.Models
         public List<Post> posts { get; set; }
         public List<Taxonomy> taxonomies { get; set; }
         public List<Term> terms { get; set; }
-        public Taxonomy taxonomy { get; set; }
+        public string name { get; set; }
     }
 }
