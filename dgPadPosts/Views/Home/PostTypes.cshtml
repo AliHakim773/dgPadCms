@@ -9,7 +9,7 @@
             <div class="row">
 
                 <div class="col-md-9" data-aos="fade-up">
-                    <h3 class="category-title">Post Type: @Model.postType.Title</h3>
+                    <h3 class="category-title">@Model.taxonomy.Name</h3>
 
                     @foreach(var i in Model.posts){
                         <div class="d-md-flex post-entry-2 half">
@@ -18,7 +18,7 @@
                         </a>
                         <div>
                             <div class="post-meta"><span class="date">@i.PostType.Title</span> <span class="mx-1">&bullet;</span> <span>@i.CreationDate</span></div>
-                            <h3><a href="single-post.html">@i.PostTitle</a></h3>
+                            <h3><a asp-controller="Home" asp-action="PostDetails" asp-route-id="@i.PostId">@i.PostTitle</a></h3>
                             @Html.Raw(i.Summary)
                         </div>
                     </div>
@@ -29,12 +29,12 @@
                 <div class="col-md-3">
 
                     <div class="aside-block">
-                        <h3 class="aside-title">Post Types</h3>
+                        <h3 class="aside-title">Categories</h3>
                         <ul class="aside-links list-unstyled">
-                            @foreach (var i in Model.postTypes)
+                            @foreach (var i in Model.taxonomies)
                            {
-                            <li><a asp-controller="Home" asp-action="PostTypes" asp-route-id="@i.PostTypeId">
-                                <i class="bi bi-chevron-right"></i> @i.Title
+                            <li><a asp-controller="Home" asp-action="PostTypes" asp-route-id="@i.TaxonomyId">
+                                <i class="bi bi-chevron-right"></i> @i.Name
                                 </a></li>
                            }
                             

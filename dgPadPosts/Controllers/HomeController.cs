@@ -52,33 +52,33 @@ namespace dgPadPosts.Controllers
         public async Task<IActionResult> PostTypes(int id)
         {
 
-            var postType = await context.PostTypes.FindAsync(id);
-
-            var postTypesTaxonomies = await context.TaxonomyPostTypes
-                .Where(x => x.PostTypeId == id)
-                .ToListAsync();
-
-            List<int> taxonomiesId = new List<int>();
-
-            foreach (var i in postTypesTaxonomies)
-            {
-                taxonomiesId.Add(i.TaxonomyId);
-            }
-
+            var taxonomy = await context.Taxonomies.FindAsync(id);
             var terms = await context.Terms
-                .Where(x => taxonomiesId.Contains(x.TaxonomyId))
+                .Where(x => x.TaxonomyId == id)
                 .ToListAsync();
+
+            List<PostTerm> postTerms = new List<PostTerm>();
+            foreach(var i in terms)
+            {
+                postTerms.AddRange(await context.PostTerms.Where(x => x.TermId == i.TermId).ToListAsync());
+            }
+            List<int> postIds = new List<int>();
+            foreach (var i in postTerms)
+            {
+                postIds.Add(i.PostId);
+            }
+            postIds = postIds.Distinct().ToList();
+
+            var posts = await context.Posts.Where(x => postIds.Contains(x.PostId)).Include(x => x.PostType).ToListAsync();
+            
 
             return View(new PostTypesViewModel()
             {
-                posts = await context.Posts
-                .Where(x => x.PostTypeId == id)
-                .OrderByDescending(x => x.PostId)
-                .ToListAsync(),
-                postType = postType,
+                posts = posts,
+                taxonomy = taxonomy,
                 terms = terms,
-                postTypes = await context.PostTypes
-                .OrderByDescending(x => x.PostTypeId)
+                taxonomies = await context.Taxonomies
+                .OrderByDescending(x => x.TaxonomyId)
                 .ToListAsync(),
             });
         }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace dgPadCms.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class RolesController : Controller
     {

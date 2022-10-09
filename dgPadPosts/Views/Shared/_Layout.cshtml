@@ -55,10 +55,10 @@
                             @using Common;
                             @inject dgPadContext context
                             @{
-                                var pt = context.PostTypes.OrderBy(x => x.Title).ToList();
+                                var pt = context.Taxonomies.OrderBy(x => x.Name).ToList();
                             }
                             @foreach (var i in pt){
-                            <li><a asp-controller="Home" asp-action="PostTypes" asp-route-id="@i.PostTypeId" >@i.Title</a></li>
+                            <li><a asp-controller="Home" asp-action="PostTypes" asp-route-id="@i.TaxonomyId" >@i.Name</a></li>
                             }
                         </ul>
                     </li>
@@ -135,8 +135,8 @@
                         <ul class="footer-links list-unstyled">
                             @foreach(var i in pt){
                             <li>
-                                <a asp-controller="Home" asp-action="PostTypes" asp-route-id="@i.PostTypeId">
-                                        <i class="bi bi-chevron-right"></i> @i.Title
+                                <a asp-controller="Home" asp-action="PostTypes" asp-route-id="@i.TaxonomyId">
+                                        <i class="bi bi-chevron-right"></i> @i.Name
                                 </a>
                             </li>
                             }
@@ -146,6 +146,7 @@
                     <div class="col-lg-4">
                         <h3 class="footer-heading">Recent Posts</h3>
                         @{
+                            var pts = context.PostTypes.ToList();
                             var posts = context.Posts.OrderByDescending(x => x.PostId).Take(4).ToList();
                         }
 
