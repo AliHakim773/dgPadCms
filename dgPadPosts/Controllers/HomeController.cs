@@ -88,7 +88,6 @@ namespace dgPadPosts.Controllers
 
             var term = await context.Terms.FindAsync(id);
             var terms = await context.Terms
-                .Where(x => x.TaxonomyId == id)
                 .ToListAsync();
 
             var postTerms = await context.PostTerms.Where(x => x.TermId == id).ToListAsync();

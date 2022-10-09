@@ -32,7 +32,7 @@ namespace dgPadCms.Areas.Admin.Controllers
         // GET /admin/terms/create
         public IActionResult Create()
         {
-            ViewBag.TaxonomyId = new SelectList(context.Taxonomies.OrderBy(x => x.Name), "TaxonomyId", "Name");
+            ViewBag.Taxonomies = new SelectList(context.Taxonomies.OrderBy(x => x.Name), "TaxonomyId", "Name");
             return View();
         }
 
